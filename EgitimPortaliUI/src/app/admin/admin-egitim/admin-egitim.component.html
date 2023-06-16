@@ -1,0 +1,59 @@
+<div class="container">
+    <h2>Eğitimler</h2>
+    <button mat-fab matTooltip="Eğitim Ekle" style="color: #c5508b;" (click)="ekle()" >
+        <mat-icon aria-label="label"  >add</mat-icon>
+    </button>
+    <p>&nbsp;</p>
+
+    <mat-form-field appearance="outline" style="width: 50%;" >
+        <mat-label>Kategori Seçiniz</mat-label>
+        <mat-select placeholder="Kategori Seçiniz" (selectionChange)="KategoriSec($eventvalue)" [value]="secKat" >
+            <mat-option [value]="'kat'" *ngFor="let kat of kategoriler" > {{kat.kategoriAdi}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-table [dataSource]="dataSource" mat-Sort >
+        <ng-container mat-columnDef = "Baslik" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Başlık</mat-header-cell>
+            <mat-cell *matCellDef="let kayit" >{{kayit.Baslik}}</mat-cell>
+        </ng-container>
+        <ng-container mat-columnDef = "tarih" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header >tarih</mat-header-cell>
+            <mat-cell *matCellDef="let kayit" >{{kayit.Tarih | date:'dd.MM.yyyy HH:mm:ss' }}</mat-cell>
+        </ng-container>
+        <ng-container mat-columnDef = "Uyekadi" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header >kayıtlı kişiler</mat-header-cell>
+            <mat-cell *matCellDef="let kayit" >{{kayit.Uyekadi}}</mat-cell>
+        </ng-container>
+        <ng-container mat-columnDef = "gosterim" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header >gösterim</mat-header-cell>
+            <mat-cell *matCellDef="let kayit" >{{kayit.gosterim}}</mat-cell>
+        </ng-container>
+        <ng-container mat-columnDef = "KategoriEgitimSay" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Eğitim Sayısı</mat-header-cell>
+            <mat-cell *matCellDef="let kayit" >{{kayit.KatEgitimSay}}</mat-cell>
+        </ng-container>
+        <ng-container mat-columnDef = "detay" >
+            <mat-header-cell *matHeaderCellDef >işlemler</mat-header-cell>
+            <mat-cell *matCellDef="let kayit" >
+                <button mat-icon-button color="primary"  matTooltip="Egitim Liste">
+                    <mat-icon aria-label="label" >list</mat-icon>
+                </button>
+                <button mat-icon-button color="primary"  matTooltip="Egitim Düzenle" (click)="duzenle(kayit)">
+                    <mat-icon aria-label="label" >edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn"  matTooltip="Egitim sil " (click)="Sil(kayit)">
+                    <mat-icon aria-label="label" >delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
+        <mat-row *matRowDef="let row; colums: displayedColumns;" ></mat-row>
+
+        <mat-paginator [pageSizeOptions]="[5,10,25,100]" showfirstlastbuttons ></mat-paginator>
+
+    </mat-table>
+
+</div>
+
